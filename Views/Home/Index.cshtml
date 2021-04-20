@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body style="background-color: #F0F8FF;">
+    <div class="container-fluid my-2">
+        <div class="row">
+            <div class="col-8">
+                <span class="h1 mx-2"><b>Java to Python Translator</b></span>
+                <span class="h4 mx-2">CS 4850 Senior Project Section 03 - Group 1A</span>
+            </div>
+            <div class="col-4">
+                <span class="b-0" style="bottom: 0; position: absolute;">Jazz DeFreitas, Bradley Guerrero, Taylor Jacquemin, Ly Pham, and Anthony Sokeng</span>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <span class="h3">Java (Input)</span>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" style="float: right;" id="translate">Translate to Python »</button>
+                    </div>
+                </div>
+                <textarea class="w-100" style="height: calc(90vh - 50px); resize: none;" id="java"></textarea>
+            </div>
+            <div class="col">
+                <span class="h3">Python (Output)</span>
+                <textarea class="w-100" style="height: calc(90vh - 50px); resize: none;" readonly id="python"></textarea>
+            </div>
+        </div>
+        <div class="text-center my-3">
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $("#translate").click(function () {
+            $.ajax({
+                url: "{% url 'translate' %}",
+                data: {
+                    "java-input": document.getElementById("java").value,
+                },
+                type: "GET",
+                success: function (response) {
+                    document.getElementById("python").value = response.result
+                },
+                error: function (error) {
+                    document.getElementById("python").value = 'Error'
+
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
